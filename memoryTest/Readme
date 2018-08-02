@@ -1,0 +1,3 @@
+运行memory.sh收集内存数据的步骤：
+1.adb connect 设备
+2.sh memory.sh 设备名或ip 包名
