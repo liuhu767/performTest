@@ -1,0 +1,3 @@
+运行cpu.sh手机cpu数据的步骤：
+1.adb connect上设备
+2.sh cpu.sh 设备名称或ip 包名
