@@ -133,7 +133,7 @@ https://blog.csdn.net/nonmarking/article/details/77924477
 https://www.jianshu.com/p/6bf564f7cdf0
 
  
-二、查看单独app的内存占用：
+4、查看单独app的内存占用：
 
 adb shell dumpsys meminfo 包名
 查询后的内容如下：
@@ -223,7 +223,7 @@ memByPkg =99172 KB
 
 
 
-二、查询手机整体内存使用情况：
+5、查询手机整体内存使用情况：
 adb shell cat /proc/meminfo
 查询后，内容如下：
 MemTotal:        2930776 kB
@@ -282,10 +282,11 @@ MemTotal = 2930776 KB
 　　一般来说内存占用大小有如下规律：VSS >= RSS >= PSS >= USS
 
          
-三、获取设备可用内存：adb sell cat /proc/meminfo |grep MemAvailable:   单位是KB
+6、获取设备可用内存：adb sell cat /proc/meminfo |grep MemAvailable:   单位是KB
 
 
-一、Android APP流量测试方法
+
+三、Android APP流量测试方法
 1、首先获取待测试app的pid:
 adb shell ps | grep 包名(windows是findstr)
 查询后：
@@ -306,7 +307,9 @@ Uid:	10344	10344	10344	10344
 注意：一个uid可能对应多个进程，将第6列和第8列的数据加一起就是当前的流量消耗
 
 
-一、Android APP耗电量测试方法
+
+
+四、Android APP耗电量测试方法
 
 1、首先重启adb:
 
@@ -351,4 +354,3 @@ Estimated power use (mAh):
     Wifi: 0.182 ( cpu=0.0120 wifi=0.170 )
     Uid u0a100: 0.166 ( cpu=0.166 )
 
-七、根据测试的包名找到对应的UID：
