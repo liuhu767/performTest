@@ -354,3 +354,33 @@ Estimated power use (mAh):
     Wifi: 0.182 ( cpu=0.0120 wifi=0.170 )
     Uid u0a100: 0.166 ( cpu=0.166 )
 
+
+五、Android CPU温度测试方法:
+
+获取CPU温度的方式：通过读取CPU信息来获取
+我们需要获取的是手机CPU内核（thermal）的信息，而这个信息是存储在手机的/sys节点目录中的。有开发经验的朋友就知道，读取手机缓存中的文件是需要有权限的。
+
+而这个权限是需要su权限，也就是root权限。那换而言之，一般的手机是读取不到这个节点信息的。这里也是一个坑，需要注意。
+
+读取路径：/sys/class/thermal/thermal_zone*
+这里的*对应了手机的内核文件夹编号，例如某些手机的*可能有17个（0~16），但是需要注意的是并不是所有的文件夹都是存储CPU内核的信息
+
+通过for循环，遍历thermal_zone，cat type出来的信息判断是否包含了以上两种CPU的关键字，则可以判断该目录是否保存了CPU内核信息。
+只要判断了那些目录是属于内核信息的，获取温度就手到拈来。只需要cat另一个参数temp那么输出的信息就是我们需要的温度:
+代码如下：
+#!/bin/sh
+while true
+do
+    for i in {1..40}
+        do
+            tem=`adb shell cat /sys/class/thermal/thermal_zone$i/temp `
+            if [[ -n "$tem" ]];then 
+                if [[ ${#tem} -ge "2" ]];then
+                    echo  `date +%Y%m%d%H%M%S`'\t'${tem:0:2}'\t' >> temper.txt
+                else
+                    echo $tem >> temper.txt
+                fi
+            fi
+        done
+
+done
